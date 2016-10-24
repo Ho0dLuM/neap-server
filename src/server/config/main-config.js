@@ -21,6 +21,14 @@
     if (process.env.NODE_ENV !== 'test') {
       app.use(morgan('dev'));
     }
+
+    // *** cross domain requests *** //
+    const allowCrossDomain = function(req, res, next) {
+      res.header('Access-Control-Allow-Origin', '*');
+      next();
+    };
+
+    app.use(allowCrossDomain);
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
