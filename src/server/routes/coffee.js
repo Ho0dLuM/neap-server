@@ -5,6 +5,7 @@ const knex = require('../db/connection');
 
 router.get('/', getAllCoffee);
 router.get('/:id', getSingleCoffee);
+router.post('/', addCoffee);
 
 function getAllCoffee(req, res, next) {
   return knex('coffee').select('*')
@@ -31,6 +32,17 @@ function getSingleCoffee(req, res, next) {
   .catch((err) => {
     return next(err);
   });
+}
+
+function addCoffee(req, res, next) {
+  return knex('coffee').insert(req.body).returning('*')
+  .then((coffee) => {
+    res.status(200).json({
+      status: 'success',
+      data: coffee
+    });
+  })
+  .catch((err) => { return next(err); });
 }
 
 module.exports = router;
