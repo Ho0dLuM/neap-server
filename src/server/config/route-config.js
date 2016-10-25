@@ -7,9 +7,11 @@
     // *** routes *** //
     const routes = require('../routes/index');
     const coffeeRoutes = require('../routes/coffee');
+    const userRoutes = require('../routes/users');
     // *** register routes *** //
     app.use('/', routes);
     app.use('/coffee', coffeeRoutes);
+    app.use('/users', userRoutes);
   };
 
 })(module.exports);
